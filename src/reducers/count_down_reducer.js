@@ -1,5 +1,5 @@
 import {
-    CREATE_TIMER
+    CREATE_TIMER, DELETE_TIMER
 } from '../actions/types';
 
 const INITIAL_STATE = [];
@@ -7,8 +7,9 @@ const INITIAL_STATE = [];
 export default function(state=INITIAL_STATE, action) {
   switch (action.type) {
     case CREATE_TIMER:
-      console.log([...state  , action.payload ]);
       return [...state, action.payload];
+    case DELETE_TIMER:
+      return state.filter(timer => timer.label != action.payload);
   }
   return state;
 }

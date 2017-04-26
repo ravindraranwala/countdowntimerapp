@@ -9,7 +9,6 @@ class TimerIndex extends Component {
   }
 
   renderTimers() {
-    console.log(this.props.timers);
     return this.props.timers.map((timer) => {
       return (
         <li className="list-group-item" key={timer.label}>

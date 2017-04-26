@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import createTimerReducer from './count_down_reducer';
+import TimerReducer from './count_down_reducer';
 
 const rootReducer = combineReducers({
-  timers: createTimerReducer,
+  timers: TimerReducer,
   form: formReducer
 });
 
