@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CountdownTimer from './countdown_timer.js';
+import TimerList from './timer_list.js';
 import TimerNew from './timer_new.js';
 
 export default class App extends Component {
@@ -11,7 +11,7 @@ export default class App extends Component {
     return (
       <div>
         <TimerNew />
-        <CountdownTimer />
+        <TimerList />
       </div>
     );
   }

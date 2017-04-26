@@ -4,9 +4,9 @@ import {
 } from './types';
 
 export function createTimer(props) {
-  console.log(props.hours);
+  let seconds = (+props.hours) * 60 * 60 + (+props.minutes) * 60 + (+props.seconds);
   return {
     type: CREATE_TIMER,
-    payload: (+props.hours) * 60 * 60 + (+props.minutes) * 60 + (+props.seconds)
+    payload: { label: props.label, seconds: seconds }
   };
 }

@@ -9,7 +9,7 @@ onSubmit(props){
 }
 
   render() {
-  const { fields: { hours, minutes, seconds }, handleSubmit } = this.props;
+  const { fields: { hours, minutes, seconds, label }, handleSubmit } = this.props;
   return (
     <form onSubmit={handleSubmit(this.props.createTimer)}>
       <h3>Create A New Timer</h3>
@@ -34,10 +34,17 @@ onSubmit(props){
           {seconds.touched ? seconds.error : ''}
         </div>
       </div>
+      <div className={`form-group ${label.touched && label.invalid ? 'has-danger' : ''}`}>
+        <label>Label</label>
+        <input type="text" className="form-control" {...label} />
+        <div className="text-help">
+          {label.touched ? label.error : ''}
+        </div>
+      </div>
       <button type="submit" className="btn btn-primary">Submit</button>
     </form>
   );
-}
+  }
 }
 
 function validate(values) {
@@ -52,6 +59,9 @@ function validate(values) {
   if (!values.seconds) {
     errors.content = 'Enter seconds';
   }
+  if (!values.label) {
+    errors.content = 'Enter label';
+  }
   return errors;
 }
 
@@ -59,6 +69,6 @@ function validate(values) {
 // reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
 export default reduxForm({
   form: 'TimerNewForm',
-  fields: ['hours', 'minutes', 'seconds'],
+  fields: ['hours', 'minutes', 'seconds', 'label'],
   validate
 }, null, { createTimer })(TimerNew);
