@@ -11,7 +11,7 @@ class TimerIndex extends Component {
   renderTimers() {
     return this.props.timers.map((timer) => {
       return (
-        <li className="list-group-item" key={timer.label}>
+        <li className="list-group-item col-md-5 li-space" key={timer.label}>
             <CountdownTimer { ...timer } />
         </li>
       );
@@ -22,7 +22,7 @@ class TimerIndex extends Component {
   return (
     <div>
       <h3>Timers</h3>
-      <ul className="list-group">
+      <ul className="list-group row">
         { this.renderTimers() }
       </ul>
     </div>

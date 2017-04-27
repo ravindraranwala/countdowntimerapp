@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteTimer } from '../actions/index';
+import * as constants from './constants';
 
 class CountdownTimer extends Component {
   constructor(props) {
     super(props);
     this.secondsToTime = this.secondsToTime.bind(this);
-    this.state = { time: {}, seconds: props.seconds, label: props.label, initialValue: props.seconds, countdownState: "resume" };
+    this.state = { time: {}, seconds: props.seconds, label: props.label, initialValue: props.seconds, countdownState: constants.RESUME };
     this.timer = 0;
     this.initValue = this.secondsToTime(this.state.initialValue);
     this.startTimer = this.startTimer.bind(this);
@@ -14,6 +15,7 @@ class CountdownTimer extends Component {
     this.onPauseResumeClick = this.onPauseResumeClick.bind(this);
     this.onResetClick = this.onResetClick.bind(this);
     this.onDeleteClick = this.onDeleteClick.bind(this);
+    this.playAudio = this.playAudio.bind(this);
   }
 
   secondsToTime(secs) {
@@ -48,6 +50,11 @@ class CountdownTimer extends Component {
     this.timer = setInterval(this.countDown, 1000);
   }
 
+  playAudio(file){
+    var audio = new Audio(file);
+    audio.play();
+  }
+
   countDown() {
     // Remove one second, set state so a re-render happens.
     let seconds = this.state.seconds - 1;
@@ -58,6 +65,9 @@ class CountdownTimer extends Component {
 
     // Check if we're at zero.
     if (seconds == 0) {
+      // Play the audio file first.
+      this.playAudio(constants.AUDIO_URL);
+      // call the onCompletion handler here.
       clearInterval(this.timer);
     }
   }
@@ -65,11 +75,11 @@ class CountdownTimer extends Component {
   onPauseResumeClick() {
     //: I prefer strings than boolean because it is more descriptive.
     var countdownState = this.state.countdownState;
-    if( countdownState == "pause" ){
-			countdownState = "resume";
+    if( countdownState == constants.PAUSE ){
+			countdownState = constants.RESUME;
       this.startTimer();
 		} else{
-			countdownState = "pause";
+			countdownState = constants.PAUSE;
       clearInterval(this.timer);
 		}
 		this.setState( {
@@ -82,7 +92,13 @@ class CountdownTimer extends Component {
     this.setState({
       time: this.secondsToTime(seconds),
       seconds: seconds,
+      countdownState: constants.RESUME
     });
+
+    if (this.state.countdownState == constants.PAUSE) {
+      // If the timer is currently clered make sure we start it up back again.
+      this.startTimer();
+    }
   }
 
   onDeleteClick() {
@@ -94,14 +110,14 @@ class CountdownTimer extends Component {
         <div>
           {this.state.label} <br />
           h: {this.state.time.h} m: {this.state.time.m} s: {this.state.time.s}
-          <button
+          <button className="btn btn-info btn-space btn-sm"
    					onClick={ this.onPauseResumeClick }>
-   					{ this.state.countdownState == "pause" ? "Resume" : "Pause" }
+   					{ this.state.countdownState == constants.PAUSE ? constants.RESUME : constants.PAUSE }
    				</button>
-          <button onClick={ this.onResetClick }>
+          <button className="btn btn-warning btn-space btn-sm" onClick={ this.onResetClick }>
             Reset
           </button>
-          <button onClick={ this.onDeleteClick }>
+          <button className="btn btn-danger btn-space btn-sm" onClick={ this.onDeleteClick }>
             Delete
           </button>
         </div>

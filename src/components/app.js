@@ -9,9 +9,13 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <TimerNew />
-        <TimerList />
+      <div className="row">
+        <div className="col-md-2">
+            <TimerNew />
+        </div>
+        <div className="col-md-10">
+            <TimerList />
+        </div>
       </div>
     );
   }
