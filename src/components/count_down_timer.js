@@ -109,17 +109,21 @@ class CountdownTimer extends Component {
   }
 
   jquery(function($) {
-    var myObj = this.state.time;
+    function drawTime() {
+      var myObj = this.state.time;
 
-    Object.keys(myObj).forEach(key => {
-      let obj = myObj[key];
-      // do something with obj
-      var digits = obj.split(EMPTY_SPACE_CHAR);
-      digits.forEach(digit => {
-        console.log(digit);
-        $('#'+ key+digits.indexOf(digit)).css({backgroundPosition: -digit*50 });
+      Object.keys(myObj).forEach(key => {
+        let obj = myObj[key];
+        // do something with obj
+        var digits = obj.split(EMPTY_SPACE_CHAR);
+        digits.forEach(digit => {
+          console.log(digit);
+          $('#'+ key+digits.indexOf(digit)).css({backgroundPosition: -digit*50 });
+        });
       });
-    });
+    }
+    drawTime();
+    setInterval(drawTime, 1000);
   });
 
   render() {
