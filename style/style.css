@@ -9,3 +9,11 @@
   margin-top:  5px;
   margin-bottom: 5px;
 }
+
+.li-border {
+  border: 2px dashed red !important;
+}
+
+.timer-list {
+  list-style-type: none;
+}

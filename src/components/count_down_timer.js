@@ -106,8 +106,9 @@ class CountdownTimer extends Component {
   }
 
   render() {
+      let borderClass = this.state.seconds === 0 ? "li-border" : "";
       return(
-        <div>
+        <div className={`list-group-item col-md-5 li-space ${borderClass}`}>
           {this.state.label} <br />
           h: {this.state.time.h} m: {this.state.time.m} s: {this.state.time.s}
           <button className="btn btn-info btn-space btn-sm"
