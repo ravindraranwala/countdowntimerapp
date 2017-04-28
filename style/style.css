@@ -17,3 +17,15 @@
 .timer-list {
   list-style-type: none;
 }
+
+#clock span{
+  display:inline-block;
+  width:50px;
+  height:85px;
+  background:url('http://i.imgur.com/uBTxTTD.jpg');
+  background-position:0 0;
+}
+
+#clock span:nth-child(even){
+  margin-right:15px;
+}

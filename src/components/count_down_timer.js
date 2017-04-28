@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteTimer } from '../actions/index';
 import * as constants from './constants';
+import jquery from 'jquery';
+import _$ from 'jquery';
 
 class CountdownTimer extends Component {
   constructor(props) {
@@ -19,13 +21,13 @@ class CountdownTimer extends Component {
   }
 
   secondsToTime(secs) {
-    let hours = Math.floor(secs / (60 * 60));
+    let hours = `${constants.ZERO}${Math.floor(secs / (60 * 60))}`.slice(-2);
 
     let divisorForMinutes = secs % (60 * 60);
-    let minutes = Math.floor(divisorForMinutes / 60);
+    let minutes = `${constants.ZERO}${Math.floor(divisorForMinutes / 60)}`.slice(-2);
 
     let divisorForSeconds = divisorForMinutes % 60;
-    let seconds = Math.ceil(divisorForSeconds);
+    let seconds = `${constants.ZERO}${Math.ceil(divisorForSeconds)}`.slice(-2);
 
     let obj = {
       "h": hours,
@@ -33,6 +35,7 @@ class CountdownTimer extends Component {
       "s": seconds
     };
 
+    console.log(obj);
     return obj;
   }
 
@@ -104,6 +107,20 @@ class CountdownTimer extends Component {
   onDeleteClick() {
     this.props.deleteTimer(this.state.label);
   }
+
+  jquery(function($) {
+    var myObj = this.state.time;
+
+    Object.keys(myObj).forEach(key => {
+      let obj = myObj[key];
+      // do something with obj
+      var digits = obj.split(EMPTY_SPACE_CHAR);
+      digits.forEach(digit => {
+        console.log(digit);
+        $('#'+ key+digits.indexOf(digit)).css({backgroundPosition: -digit*50 });
+      });
+    });
+  });
 
   render() {
       let borderClass = this.state.seconds === 0 ? "li-border" : "";
