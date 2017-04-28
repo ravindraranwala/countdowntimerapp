@@ -115,7 +115,7 @@ class CountdownTimer extends Component {
       Object.keys(myObj).forEach(key => {
         let obj = myObj[key];
         // do something with obj
-        var digits = obj.split(EMPTY_SPACE_CHAR);
+        var digits = obj.split(constants.EMPTY_SPACE_CHAR);
         digits.forEach(digit => {
           console.log(digit);
           $('#'+ key+digits.indexOf(digit)).css({backgroundPosition: -digit*50 });
