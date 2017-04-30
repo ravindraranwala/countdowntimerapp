@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { deleteTimer } from '../actions/index';
 import * as constants from './constants';
 import jquery from 'jquery';
-import _$ from 'jquery';
 
 class CountdownTimer extends Component {
   constructor(props) {
@@ -18,6 +17,7 @@ class CountdownTimer extends Component {
     this.onResetClick = this.onResetClick.bind(this);
     this.onDeleteClick = this.onDeleteClick.bind(this);
     this.playAudio = this.playAudio.bind(this);
+    this.handleFlipClockImage = this.handleFlipClockImage.bind(this);
   }
 
   secondsToTime(secs) {
@@ -34,8 +34,6 @@ class CountdownTimer extends Component {
       "m": minutes,
       "s": seconds
     };
-
-    console.log(obj);
     return obj;
   }
 
@@ -108,30 +106,40 @@ class CountdownTimer extends Component {
     this.props.deleteTimer(this.state.label);
   }
 
-  jquery(function($) {
-    function drawTime() {
-      var myObj = this.state.time;
+  handleFlipClockImage = () => {
+    jquery(function($) {
+      function drawTime() {
+        var myObj = this.state.time;
 
-      Object.keys(myObj).forEach(key => {
-        let obj = myObj[key];
-        // do something with obj
-        var digits = obj.split(constants.EMPTY_SPACE_CHAR);
-        digits.forEach(digit => {
-          console.log(digit);
-          $('#'+ key+digits.indexOf(digit)).css({backgroundPosition: -digit*50 });
+        Object.keys(myObj).forEach(key => {
+          let obj = myObj[key];
+          // do something with obj
+          var digits = obj.split(constants.EMPTY_SPACE_CHAR);
+          digits.forEach(digit => {
+            console.log(key+digits.indexOf(digit));
+            $('#'+ key+digits.indexOf(digit)).css({backgroundPosition: -digit*50 });
+          });
         });
-      });
-    }
-    drawTime();
-    setInterval(drawTime, 1000);
-  });
+      }
+    });
+  }
 
   render() {
       let borderClass = this.state.seconds === 0 ? "li-border" : "";
+      {this.handleFlipClockImage()};
       return(
         <div className={`list-group-item col-md-5 li-space ${borderClass}`}>
           {this.state.label} <br />
-          h: {this.state.time.h} m: {this.state.time.m} s: {this.state.time.s}
+
+          <span id="h0"></span>
+          <span id="h1"></span>
+
+          <span id="m0"></span>
+          <span id="m1"></span>
+
+          <span id="s0"></span>
+          <span id="s1"></span>
+
           <button className="btn btn-info btn-space btn-sm"
    					onClick={ this.onPauseResumeClick }>
    					{ this.state.countdownState == constants.PAUSE ? constants.RESUME : constants.PAUSE }
