@@ -107,20 +107,16 @@ class CountdownTimer extends Component {
   }
 
   handleFlipClockImage = () => {
-    jquery(function($) {
-      function drawTime() {
-        var myObj = this.state.time;
+    var myObj = this.state.time;
 
-        Object.keys(myObj).forEach(key => {
-          let obj = myObj[key];
-          // do something with obj
-          var digits = obj.split(constants.EMPTY_SPACE_CHAR);
-          digits.forEach(digit => {
-            console.log(key+digits.indexOf(digit));
-            $('#'+ key+digits.indexOf(digit)).css({backgroundPosition: -digit*50 });
-          });
-        });
-      }
+    Object.keys(myObj).forEach(key => {
+      let obj = myObj[key];
+      // do something with obj
+      var digits = obj.split(constants.EMPTY_SPACE_CHAR);
+      console.log(digits);
+      digits.forEach((digit, index) => {
+        jquery(`#${this.state.label}${key}${index}`).css({backgroundPosition: -digit*50 });
+      });
     });
   }
 
@@ -129,16 +125,16 @@ class CountdownTimer extends Component {
       {this.handleFlipClockImage()};
       return(
         <div className={`list-group-item col-md-5 li-space ${borderClass}`}>
-          {this.state.label} <br />
+          <div>{this.state.label}</div>
 
-          <span id="h0"></span>
-          <span id="h1"></span>
+          <span className="digit-display" id={this.state.label + "h0"}></span>
+          <span className="digit-display"  id={this.state.label + "h1"}></span>
 
-          <span id="m0"></span>
-          <span id="m1"></span>
+          <span className="digit-display"  id={this.state.label + "m0"}></span>
+          <span className="digit-display"  id={this.state.label + "m1"}></span>
 
-          <span id="s0"></span>
-          <span id="s1"></span>
+          <span className="digit-display"  id={this.state.label + "s0"}></span>
+          <span className="digit-display"  id={this.state.label + "s1"}></span>
 
           <button className="btn btn-info btn-space btn-sm"
    					onClick={ this.onPauseResumeClick }>
