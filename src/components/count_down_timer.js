@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteTimer } from '../actions/index';
 import * as constants from './constants';
+import jquery from 'jquery';
 
 class CountdownTimer extends Component {
   constructor(props) {
@@ -16,23 +17,23 @@ class CountdownTimer extends Component {
     this.onResetClick = this.onResetClick.bind(this);
     this.onDeleteClick = this.onDeleteClick.bind(this);
     this.playAudio = this.playAudio.bind(this);
+    this.handleFlipClockImage = this.handleFlipClockImage.bind(this);
   }
 
   secondsToTime(secs) {
-    let hours = Math.floor(secs / (60 * 60));
+    let hours = `${constants.ZERO}${Math.floor(secs / (60 * 60))}`.slice(-2);
 
     let divisorForMinutes = secs % (60 * 60);
-    let minutes = Math.floor(divisorForMinutes / 60);
+    let minutes = `${constants.ZERO}${Math.floor(divisorForMinutes / 60)}`.slice(-2);
 
     let divisorForSeconds = divisorForMinutes % 60;
-    let seconds = Math.ceil(divisorForSeconds);
+    let seconds = `${constants.ZERO}${Math.ceil(divisorForSeconds)}`.slice(-2);
 
     let obj = {
       "h": hours,
       "m": minutes,
       "s": seconds
     };
-
     return obj;
   }
 
@@ -104,12 +105,36 @@ class CountdownTimer extends Component {
     this.props.deleteTimer(this.state.label);
   }
 
+  handleFlipClockImage = () => {
+    var myObj = this.state.time;
+
+    Object.keys(myObj).forEach(key => {
+      let obj = myObj[key];
+      // do something with obj
+      var digits = obj.split(constants.EMPTY_SPACE_CHAR);
+      console.log(digits);
+      digits.forEach((digit, index) => {
+        jquery(`#${this.state.label}${key}${index}`).css({backgroundPosition: -digit*50 });
+      });
+    });
+  }
+
   render() {
-      let borderClass = this.state.seconds === 0 ? "li-border" : "";
+      let borderClass = this.state.seconds === 0 ? "li-border" : constants.EMPTY_SPACE_CHAR;
+      {this.handleFlipClockImage()};
       return(
         <div className={`list-group-item col-md-5 li-space ${borderClass}`}>
-          {this.state.label} <br />
-          h: {this.state.time.h} m: {this.state.time.m} s: {this.state.time.s}
+          <div>{this.state.label}</div>
+
+          <span className="digit-display" id={this.state.label + "h0"}></span>
+          <span className="digit-display"  id={this.state.label + "h1"}></span>
+
+          <span className="digit-display"  id={this.state.label + "m0"}></span>
+          <span className="digit-display"  id={this.state.label + "m1"}></span>
+
+          <span className="digit-display"  id={this.state.label + "s0"}></span>
+          <span className="digit-display"  id={this.state.label + "s1"}></span>
+
           <button className="btn btn-info btn-space btn-sm"
    					onClick={ this.onPauseResumeClick }>
    					{ this.state.countdownState == constants.PAUSE ? constants.RESUME : constants.PAUSE }

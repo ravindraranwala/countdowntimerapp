@@ -17,3 +17,15 @@
 .timer-list {
   list-style-type: none;
 }
+
+.list-group-item .digit-display{
+  display:inline-block;
+  width:50px;
+  height:85px;
+  background:url('http://i.imgur.com/uBTxTTD.jpg');
+  background-position:0 0;
+}
+
+.list-group-item .digit-display:nth-child(odd){
+  margin-right:15px;
+}
