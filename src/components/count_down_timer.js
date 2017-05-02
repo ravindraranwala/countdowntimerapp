@@ -121,7 +121,7 @@ class CountdownTimer extends Component {
   }
 
   render() {
-      let borderClass = this.state.seconds === 0 ? "li-border" : "";
+      let borderClass = this.state.seconds === 0 ? "li-border" : constants.EMPTY_SPACE_CHAR;
       {this.handleFlipClockImage()};
       return(
         <div className={`list-group-item col-md-5 li-space ${borderClass}`}>
