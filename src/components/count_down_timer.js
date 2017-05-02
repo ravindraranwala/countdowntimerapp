@@ -88,17 +88,16 @@ class CountdownTimer extends Component {
   }
 
   onResetClick() {
+    clearInterval(this.timer);
     let seconds = this.state.initialValue;
     this.setState({
       time: this.secondsToTime(seconds),
-      seconds: seconds,
+      seconds,
       countdownState: constants.RESUME
     });
 
-    if (this.state.countdownState == constants.PAUSE) {
-      // If the timer is currently clered make sure we start it up back again.
+      // If the timer is currently cleared make sure we start it up back again.
       this.startTimer();
-    }
   }
 
   onDeleteClick() {
