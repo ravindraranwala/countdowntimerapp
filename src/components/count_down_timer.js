@@ -7,9 +7,8 @@ import jquery from 'jquery';
 class CountdownTimer extends Component {
   constructor(props) {
     super(props);
-    console.log("creating the timer component !");
     this.secondsToTime = this.secondsToTime.bind(this);
-    this.state = { time: {}, seconds: props.seconds, label: props.label, initialValue: props.seconds, countdownState: constants.RESUME };
+    this.state = { time: {}, seconds: props.seconds, label: props.label, initialValue: props.seconds, countdownState: props.countdownState, id: props.id };
     this.timer = 0;
     this.initValue = this.secondsToTime(this.state.initialValue);
     this.startTimer = this.startTimer.bind(this);
@@ -103,7 +102,7 @@ class CountdownTimer extends Component {
   }
 
   onDeleteClick() {
-    this.props.deleteTimer(this.state.label);
+    this.props.deleteTimer(this.state.id);
   }
 
   handleFlipClockImage = () => {
@@ -113,7 +112,6 @@ class CountdownTimer extends Component {
       let obj = myObj[key];
       // do something with obj
       var digits = obj.split(constants.EMPTY_SPACE_CHAR);
-      console.log(digits);
       digits.forEach((digit, index) => {
         jquery(`#${this.state.label}${key}${index}`).css({backgroundPosition: -digit*50 });
       });

@@ -10,10 +10,7 @@ class TimerIndex extends Component {
   }
 
   renderTimers() {
-      console.log("Rendering timers here !");
-      console.log("All the timers: " + JSON.stringify(this.props.timers));
     return _.map(this.props.timers, timer => {
-      console.log(JSON.stringify(timer));
       return (
         <li key={timer.id}>
             <CountdownTimer { ...timer } />
