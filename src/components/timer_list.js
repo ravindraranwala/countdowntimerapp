@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import CountdownTimer from './count_down_timer.js';
 
 class TimerIndex extends Component {
@@ -9,9 +10,12 @@ class TimerIndex extends Component {
   }
 
   renderTimers() {
-    return this.props.timers.map((timer) => {
+      console.log("Rendering timers here !");
+      console.log("All the timers: " + JSON.stringify(this.props.timers));
+    return _.map(this.props.timers, timer => {
+      console.log(JSON.stringify(timer));
       return (
-        <li key={timer.label}>
+        <li key={timer.id}>
             <CountdownTimer { ...timer } />
         </li>
       );

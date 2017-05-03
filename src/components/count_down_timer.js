@@ -7,6 +7,7 @@ import jquery from 'jquery';
 class CountdownTimer extends Component {
   constructor(props) {
     super(props);
+    console.log("creating the timer component !");
     this.secondsToTime = this.secondsToTime.bind(this);
     this.state = { time: {}, seconds: props.seconds, label: props.label, initialValue: props.seconds, countdownState: constants.RESUME };
     this.timer = 0;
