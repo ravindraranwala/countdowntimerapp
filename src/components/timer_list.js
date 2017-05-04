@@ -13,7 +13,6 @@ class TimerIndex extends Component {
   }
 
   renderTimers() {
-    console.log(this.props.timers);
     return _.map(this.props.timers, timer => {
       return (
         <li key={timer.id}>
