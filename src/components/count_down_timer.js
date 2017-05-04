@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as constants from './constants';
-import jquery from 'jquery';
 
 class CountdownTimer extends Component {
   constructor(props) {
@@ -13,7 +12,7 @@ class CountdownTimer extends Component {
     this.onPauseResumeClick = this.onPauseResumeClick.bind(this);
     this.onResetClick = this.onResetClick.bind(this);
     this.onDeleteClick = this.onDeleteClick.bind(this);
-    this.handleFlipClockImage = this.handleFlipClockImage.bind(this);
+    this.displayDigit = this.displayDigit.bind(this);
   }
 
   secondsToTime(secs) {
@@ -81,35 +80,27 @@ class CountdownTimer extends Component {
     this.props.onDeleteClick(this.props.id);
   }
 
-  handleFlipClockImage = () => {
-    var myObj = this.secondsToTime(this.props.remainingSeconds);
 
-    Object.keys(myObj).forEach(key => {
-      let obj = myObj[key];
-      // do something with obj
-      var digits = obj.split(constants.EMPTY_SPACE_CHAR);
-      digits.forEach((digit, index) => {
-        console.log(key+index + " : " + digit);
-        jquery(`#${this.props.label}${key}${index}`).css({backgroundPosition: -digit*50 });
-      });
-    });
+  displayDigit(digit) {
+    const baseSelector = "digit-display position-";
+    return `${baseSelector}${digit}`;
   }
 
   render() {
       let borderClass = this.props.remainingSeconds === 0 ? "li-border" : constants.EMPTY_SPACE_CHAR;
-      {this.handleFlipClockImage()};
+      var myObj = this.secondsToTime(this.props.remainingSeconds);
       return(
         <div className={`list-group-item col-md-5 li-space ${borderClass}`}>
           <div>{this.props.label}</div>
 
-          <span className="digit-display" id={this.props.label + "h0"}></span>
-          <span className="digit-display"  id={this.props.label + "h1"}></span>
+          <span className = {this.displayDigit(myObj["h"].charAt(0))}></span>
+          <span className = {this.displayDigit(myObj["h"].charAt(1))}></span>
 
-          <span className="digit-display"  id={this.props.label + "m0"}></span>
-          <span className="digit-display"  id={this.props.label + "m1"}></span>
+          <span className = {this.displayDigit(myObj["m"].charAt(0))}></span>
+          <span className = {this.displayDigit(myObj["m"].charAt(1))}></span>
 
-          <span className="digit-display"  id={this.props.label + "s0"}></span>
-          <span className="digit-display"  id={this.props.label + "s1"}></span>
+          <span className = {this.displayDigit(myObj["s"].charAt(0))}></span>
+          <span className = {this.displayDigit(myObj["s"].charAt(1))}></span>
 
           <button className="btn btn-info btn-space btn-sm"
    					onClick={ this.onPauseResumeClick }>
