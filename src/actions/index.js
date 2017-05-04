@@ -6,8 +6,7 @@ import {
 } from './types';
 
 export function createTimer(props) {
-  // TODO: check whether we can improve this string => number conversion.
-  let seconds = (+props.hours) * 60 * 60 + (+props.minutes) * 60 + (+props.seconds);
+  let seconds = Number.parseInt(props.hours) * 60 * 60 + Number.parseInt(props.minutes) * 60 + Number.parseInt(props.seconds);
   return {
     type: CREATE_TIMER,
     payload: { id: uuidV4(), label: props.label, seconds: seconds, remainingSeconds: seconds, countdownState: constants.RESUME }
