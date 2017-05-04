@@ -3,3 +3,4 @@ export const RESUME = "Resume";
 export const PAUSE = "Pause";
 export const ZERO = "0";
 export const EMPTY_SPACE_CHAR = "";
+export const INTERVAL = 1000;

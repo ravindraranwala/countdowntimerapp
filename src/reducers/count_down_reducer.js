@@ -1,18 +1,24 @@
+import _ from 'lodash';
 import {
-    CREATE_TIMER, DELETE_TIMER
+    CREATE_TIMER, DELETE_TIMER, UPDATE_STATE, COUNT_DOWN, RESET_TIMER
 } from '../actions/types';
 
-const INITIAL_STATE = [];
+const INITIAL_STATE = {};
 
 export default function(state=INITIAL_STATE, action) {
   switch (action.type) {
     case CREATE_TIMER:
       // TODO: don't add duplicate timers with the same label.
       // TODO: check with the redux state tool and why it does not show up the state.
-      console.log(state);
-      return [...state, action.payload];
+      return { ...state, [action.payload.id]: action.payload }
     case DELETE_TIMER:
-      return state.filter(timer => timer.label != action.payload);
+      return _.omit(state, action.payload);
+    case UPDATE_STATE:
+      return { ...state, [action.payload.id]: { ...state[action.payload.id], countdownState: action.payload.countdownState }};
+    case COUNT_DOWN:
+      return { ...state, [action.payload.id]: { ...state[action.payload.id], remainingSeconds: action.payload.remainingSeconds }};
+    case RESET_TIMER:
+      return { ...state, [action.payload.id]: { ...state[action.payload.id], remainingSeconds: action.payload.seconds }};
   }
   return state;
 }
