@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { deleteTimer, updateState, countDown, resetTimer } from '../actions/index';
-import CountdownTimer from './count_down_timer.js';
-import * as constants from './constants';
+import CountdownTimer from '../components/count_down_timer.js';
+import * as constants from '../components/constants';
 
 class TimerIndex extends Component {
   constructor(props) {

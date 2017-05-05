@@ -13,6 +13,7 @@ class CountdownTimer extends Component {
     this.onResetClick = this.onResetClick.bind(this);
     this.onDeleteClick = this.onDeleteClick.bind(this);
     this.displayDigit = this.displayDigit.bind(this);
+    this.displayHeader = this.displayHeader.bind(this);
   }
 
   secondsToTime(secs) {
@@ -59,10 +60,10 @@ class CountdownTimer extends Component {
 
   onPauseResumeClick() {
     //: I prefer strings than boolean because it is more descriptive.
-    if( this.props.countdownState == constants.PAUSE ){
+    if(this.props.countdownState == constants.PAUSE) {
 			this.props.onPauseResumeClick(this.props.id, constants.RESUME);
       this.startTimer();
-		} else{
+		} else {
       this.props.onPauseResumeClick(this.props.id, constants.PAUSE);
       clearInterval(this.timer);
 		}
@@ -86,21 +87,27 @@ class CountdownTimer extends Component {
     return `${baseSelector}${digit}`;
   }
 
+  displayHeader(){
+     var initialTime = this.secondsToTime(this.props.seconds);
+     return `${this.props.label} (${initialTime["h"]}:${initialTime["m"]}:${initialTime["s"]})`
+
+  }
+
   render() {
       let borderClass = this.props.remainingSeconds === 0 ? "li-border" : constants.EMPTY_SPACE_CHAR;
-      var myObj = this.secondsToTime(this.props.remainingSeconds);
+      var remainingTime = this.secondsToTime(this.props.remainingSeconds);
       return(
         <div className={`list-group-item col-md-5 li-space ${borderClass}`}>
-          <div>{this.props.label}</div>
+          <div>{this.displayHeader()}</div>
 
-          <span className = {this.displayDigit(myObj["h"].charAt(0))}></span>
-          <span className = {this.displayDigit(myObj["h"].charAt(1))}></span>
+          <span className = {this.displayDigit(remainingTime["h"].charAt(0))}></span>
+          <span className = {this.displayDigit(remainingTime["h"].charAt(1))}></span>
 
-          <span className = {this.displayDigit(myObj["m"].charAt(0))}></span>
-          <span className = {this.displayDigit(myObj["m"].charAt(1))}></span>
+          <span className = {this.displayDigit(remainingTime["m"].charAt(0))}></span>
+          <span className = {this.displayDigit(remainingTime["m"].charAt(1))}></span>
 
-          <span className = {this.displayDigit(myObj["s"].charAt(0))}></span>
-          <span className = {this.displayDigit(myObj["s"].charAt(1))}></span>
+          <span className = {this.displayDigit(remainingTime["s"].charAt(0))}></span>
+          <span className = {this.displayDigit(remainingTime["s"].charAt(1))}></span>
 
           <button className="btn btn-info btn-space btn-sm"
    					onClick={ this.onPauseResumeClick }>
