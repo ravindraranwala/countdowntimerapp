@@ -3,16 +3,11 @@ import { reduxForm } from 'redux-form';
 import { createTimer } from '../actions/index';
 
 class TimerNew extends Component {
-
-onSubmit(props){
-  this.props.createTimer(props);
-}
-
   render() {
   const { fields: { hours, minutes, seconds, label }, handleSubmit } = this.props;
   return (
     <form onSubmit={handleSubmit(this.props.createTimer)}>
-      <h5>Create A New Timer</h5>
+      <h3>Create A New Timer</h3>
       <div className={`form-group ${hours.touched && hours.invalid ? 'has-danger' : ''}`}>
         <label>Hours</label>
         <input type="text" className="form-control" {...hours} />
@@ -41,7 +36,7 @@ onSubmit(props){
           {label.touched ? label.error : ''}
         </div>
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+      <button type="submit" className="btn btn-primary">+</button>
     </form>
   );
   }
@@ -51,16 +46,16 @@ function validate(values) {
   const errors = {};
 
   if (!values.hours) {
-    errors.title = 'Enter hours';
+    errors.hours = 'Enter hours';
   }
   if (!values.minutes) {
-    errors.categories = 'Enter minutes';
+    errors.minutes = 'Enter minutes';
   }
   if (!values.seconds) {
-    errors.content = 'Enter seconds';
+    errors.seconds = 'Enter seconds';
   }
   if (!values.label) {
-    errors.content = 'Enter label';
+    errors.label = 'Enter label';
   }
   return errors;
 }
