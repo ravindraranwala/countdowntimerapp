@@ -89,7 +89,7 @@ class CountdownTimer extends Component {
 
   displayHeader(){
      var initialTime = this.secondsToTime(this.props.seconds);
-     return `${this.props.label} (${initialTime["h"]}:${initialTime["m"]}:${initialTime["s"]})`
+     return `${this.props.label} ${constants.OPENING_BRACKET}${initialTime["h"]}${constants.COLON}${initialTime["m"]}${constants.COLON}${initialTime["s"]}${constants.CLOSING_BRACKET}`
 
   }
 

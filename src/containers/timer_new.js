@@ -7,7 +7,7 @@ class TimerNew extends Component {
   const { fields: { hours, minutes, seconds, label }, handleSubmit } = this.props;
   return (
     <form onSubmit={handleSubmit(this.props.createTimer)}>
-      <h3>Create A New Timer</h3>
+      <h3>Create a New Timer</h3>
       <div className={`form-group ${hours.touched && hours.invalid ? 'has-danger' : ''}`}>
         <label>Hours</label>
         <input type="text" className="form-control" {...hours} />

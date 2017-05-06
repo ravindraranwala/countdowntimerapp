@@ -4,3 +4,6 @@ export const PAUSE = "Pause";
 export const ZERO = "0";
 export const EMPTY_SPACE_CHAR = "";
 export const INTERVAL = 1000;
+export const OPENING_BRACKET = "(";
+export const CLOSING_BRACKET = ")";
+export const COLON = ":";
