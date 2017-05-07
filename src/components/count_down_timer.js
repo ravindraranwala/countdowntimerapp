@@ -47,7 +47,7 @@ class CountdownTimer extends Component {
 
   countDown() {
     // Remove one second, set state so a re-render happens.
-    this.props.onCountDown(this.props.id, this.props.remainingSeconds, this.props.seconds);
+    this.props.onCountDown(this.props.id, this.props.remainingSeconds);
 
     // Check if we're at zero.
     if (this.props.remainingSeconds == 0) {
