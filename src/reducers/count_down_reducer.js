@@ -16,7 +16,7 @@ export default function(state=INITIAL_STATE, action) {
     case COUNT_DOWN:
       return { ...state, [action.payload.id]: { ...state[action.payload.id], remainingSeconds: action.payload.remainingSeconds }};
     case RESET_TIMER:
-      return { ...state, [action.payload.id]: { ...state[action.payload.id], remainingSeconds: action.payload.seconds }};
+      return { ...state, [action.payload.id]: { ...state[action.payload.id], remainingSeconds: action.payload.remainingSeconds }};
   }
   return state;
 }

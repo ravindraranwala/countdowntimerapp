@@ -34,9 +34,9 @@ export function countDown(id, remainingSeconds) {
   };
 }
 
-export function resetTimer(id, remainingSeconds, seconds) {
+export function resetTimer(id, seconds) {
   return {
     type: RESET_TIMER,
-    payload: { id: id, remainingSeconds: remainingSeconds, seconds: seconds }
+    payload: { id: id, remainingSeconds: seconds }
   };
 }

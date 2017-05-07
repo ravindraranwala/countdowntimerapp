@@ -71,10 +71,10 @@ class CountdownTimer extends Component {
 
   onResetClick() {
     clearInterval(this.timer);
-    this.props.onResetClick(this.props.id, this.props.remainingSeconds, this.props.seconds);
+    this.props.onResetClick(this.props.id, this.props.seconds);
 
-      // If the timer is currently cleared make sure we start it up back again.
-      this.startTimer();
+    // If the timer is currently cleared make sure we start it up back again.
+    this.startTimer();
   }
 
   onDeleteClick() {
